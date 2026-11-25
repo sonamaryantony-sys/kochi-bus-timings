@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kochi Bus Timings</title>
+<style>
+body{font-family:Arial;background:#f0f2f5;padding:15px}
+h2{text-align:center}
+.search{background:white;padding:15px;border-radius:12px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
+input,select{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
+button{width:100%;padding:12px;background:#e74c3c;color:white;border:none;border-radius:8px;font-size:16px}
+.card{background:white;padding:15px;border-radius:10px;margin-top:12px;box-shadow:0 2px 5px rgba(0,0,0,0.1);border-left:6px solid #e74c3c}
+.time{font-size:20px;font-weight:bold;color:#2c3e50}
+.badge{background:#ffeaa7;padding:3px 8px;border-radius:20px;font-size:12px}
+</style>
+</head>
+<body>
+
+<h2>🚌 Kochi Bus Timings</h2>
+<p style="text-align:center">Find your bus - Ernakulam, Kakkanad, Aluva</p>
+
+<div class="search">
+<label>From</label>
+<select id="from">
+<option>Ernakulam</option>
+<option>Kakkanad</option>
+<option>Aluva</option>
+<option>Vyttila</option>
+<option>Fort Kochi</option>
+<option>Tripunithura</option>
+</select>
+
+<label>To</label>
+<select id="to">
+<option>Kakkanad</option>
+<option>Ernakulam</option>
+<option>Aluva</option>
+<option>Vyttila</option>
+<option>Fort Kochi</option>
+<option>Tripunithura</option>
+</select>
+
+<button onclick="searchBus()">Find Buses</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+let buses = [
+{from:"Ernakulam", to:"Kakkanad", time:"07:30 AM", bus:"KSRTC - Low Floor", fare:"₹25"},
+{from:"Ernakulam", to:"Kakkanad", time:"08:00 AM", bus:"Private - City Fast", fare:"₹22"},
+{from:"Ernakulam", to:"Kakkanad", time:"08:30 AM", bus:"KSRTC", fare:"₹25"},
+{from:"Ernakulam", to:"Kakkanad", time:"09:15 AM", bus:"Private", fare:"₹22"},
+{from:"Kakkanad", to:"Ernakulam", time:"08:00 AM", bus:"KSRTC", fare:"₹25"},
+{from:"Kakkanad", to:"Ernakulam", time:"09:00 AM", bus:"Private", fare:"₹22"},
+{from:"Ernakulam", to:"Aluva", time:"07:45 AM", bus:"KSRTC", fare:"₹30"},
+{from:"Ernakulam", to:"Aluva", time:"08:30 AM", bus:"Private", fare:"₹28"},
+{from:"Ernakulam", to:"Fort Kochi", time:"07:20 AM", bus:"Private", fare:"₹20"},
+{from:"Ernakulam", to:"Fort Kochi", time:"08:10 AM", bus:"KSRTC", fare:"₹22"},
+{from:"Ernakulam", to:"Tripunithura", time:"07:50 AM", bus:"Private", fare:"₹18"},
+{from:"Ernakulam", to:"Vyttila", time:"08:05 AM", bus:"KSRTC", fare:"₹15"},
+{from:"Vyttila", to:"Kakkanad", time:"08:20 AM", bus:"Private", fare:"₹20"},
+{from:"Aluva", to:"Ernakulam", time:"08:15 AM", bus:"KSRTC", fare:"₹30"},
+];
+
+function searchBus(){
+ let f = document.getElementById('from').value;
+ let t = document.getElementById('to').value;
+ let found = buses.filter(b=>b.from==f && b.to==t);
+ let html = '';
+ if(found.length==0){
+   html = `<div class="card">No direct bus found.<br>Try Ernakulam -> Kakkanad for demo.</div>`;
+ } else {
+   found.forEach(b=>{
+     html += `<div class="card"><div class="time">🕐 ${b.time}</div><b>${b.from} ➜ ${b.to}</b><br>🚌 ${b.bus} | 💰 ${b.fare} <br><span class="badge">On Time</span></div>`;
+   });
+ }
+ document.getElementById('result').innerHTML = html;
+}
+searchBus();
+</script>
+</body>
+</html>
